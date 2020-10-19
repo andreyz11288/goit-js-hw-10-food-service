@@ -1,3 +1,4 @@
+import './images/icon-close.svg'
 import './css/style.css'
 import defaultEl from './js/gallery-items.js';
 
