@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/andreyz11288/js-23-webpack/issues"
   },
-  "homepage": "https://github.com/andreyz11288/js-23-webpack/",
+  "homepage": "https://github.com/andreyz11288/js-23-webpack/dist/index.html",
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
