@@ -2,11 +2,10 @@
   "name": "goit-js-hw-10-food-service",
   "version": "1.0.0",
   "description": "",
-  "main": "webpack.config.js",
   "scripts": {
-    "start": "webpack --mode=development",
-    "dev": "webpack-dev-server --mode=development",
-    "prod": "webpack --mode=production"
+    "prod": "webpack --mode=production",
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html"
   },
   "repository": {
     "type": "git",
@@ -18,18 +17,14 @@
   "bugs": {
     "url": "https://github.com/andreyz11288/goit-js-hw-10-food-service/issues"
   },
-  "homepage": "https://github.com/andreyz11288/goit-js-hw-10-food-service",
+  "homepage": "https://github.com/andreyz11288/goit-js-hw-10-food-service#index",
+  "dependencies": {
+    "joi": "^17.2.1"
+  },
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/preset-env": "^7.12.1",
-    "babel-loader": "^8.1.0",
-    "css-loader": "^5.0.0",
-    "file-loader": "^6.1.1",
-    "html-webpack-plugin": "^4.5.0",
-    "mini-css-extract-plugin": "^1.0.0",
-    "style-loader": "^2.0.0",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "cssnano": "^4.1.10",
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.27.0",
+    "svg-parser": "^2.0.4"
   }
 }
