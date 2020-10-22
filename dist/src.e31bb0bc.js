@@ -2166,18 +2166,18 @@ var templateFunction = _handlebars.default.template({
       return undefined;
     };
 
-    return "<li class=\"menu__item\">\n    <article class=\"card\">\n        <img src=\"" + alias4((helper = (helper = lookupProperty(helpers, "image") || (depth0 != null ? lookupProperty(depth0, "image") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+    return "<li class=\"menu__item\">\n    <article class=\"card\">\n        <img loading=\"lazy\" src=\"" + alias4((helper = (helper = lookupProperty(helpers, "image") || (depth0 != null ? lookupProperty(depth0, "image") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
       "name": "image",
       "hash": {},
       "data": data,
       "loc": {
         "start": {
           "line": 3,
-          "column": 18
+          "column": 33
         },
         "end": {
           "line": 3,
-          "column": 27
+          "column": 42
         }
       }
     }) : helper)) + "\" alt=\"" + alias4((helper = (helper = lookupProperty(helpers, "name") || (depth0 != null ? lookupProperty(depth0, "name") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
@@ -2187,11 +2187,11 @@ var templateFunction = _handlebars.default.template({
       "loc": {
         "start": {
           "line": 3,
-          "column": 34
+          "column": 49
         },
         "end": {
           "line": 3,
-          "column": 42
+          "column": 57
         }
       }
     }) : helper)) + "\" class=\"card__image\" />\n        <div class=\"card__content\">\n            <h2 class=\"card__name\">" + alias4((helper = (helper = lookupProperty(helpers, "name") || (depth0 != null ? lookupProperty(depth0, "name") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
@@ -2391,6 +2391,41 @@ module.exports = [{
   "price": 240,
   "ingredients": ["Круглый рис", "Мини цукини", "Тертый имбирь", "Грибы шиитаке", "Соевый соус", "Кунжутное масло"]
 }];
+},{}],"lazy.js":[function(require,module,exports) {
+if ('loading' in HTMLImageElement.prototype) {
+  console.log('Браузер поддерживает lazyload');
+  addSrcAttrToLazyImages();
+} else {
+  console.log('Браузер НЕ поддерживает lazyload');
+  addLazySizesScript();
+}
+
+var lazyImages = document.querySelectorAll('img[data-src]');
+lazyImages.forEach(function (image) {
+  image.addEventListener('load', onImageLoaded, {
+    once: true
+  });
+});
+
+function onImageLoaded(evt) {
+  console.log('Картинка загрузилась');
+  evt.target.classList.add('appear');
+}
+
+function addLazySizesScript() {
+  var script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js';
+  script.integrity = 'sha512-TmDwFLhg3UA4ZG0Eb4MIyT1O1Mb+Oww5kFG0uHqXsdbyZz9DcvYQhKpGgNkamAI6h2lGGZq2X8ftOJvF/XjTUg==';
+  script.crossOrigin = 'anonymous';
+  document.body.appendChild(script);
+}
+
+function addSrcAttrToLazyImages() {
+  var lazyImages = document.querySelectorAll('img[loading="lazy"]');
+  lazyImages.forEach(function (img) {
+    img.src = img.dataset.src;
+  });
+}
 },{}],"index.js":[function(require,module,exports) {
 "use strict";
 
@@ -2401,6 +2436,8 @@ require("./images/sprite.svg");
 require("./css/styles.css");
 
 var _menu = _interopRequireDefault(require("./menu.json"));
+
+require("./lazy.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2417,12 +2454,22 @@ var toolBar = document.querySelector('body');
 toolBar.className = 'light-theme';
 var inputRef = document.querySelector('.theme-switch__toggle');
 inputRef.addEventListener('change', function () {
+  var toolBarClassName = toolBar.className;
+
   if (toolBar.className === 'dark-theme') {
     toolBar.className = 'light-theme';
+    localStorage.setItem('toolBar.className', 'light-theme');
     return;
-  } else toolBar.className = 'dark-theme';
+  } else {
+    toolBar.className = 'dark-theme';
+    localStorage.setItem('toolBar.className', 'dark-theme');
+  }
+
+  ;
 });
-},{"./hendel.hbs":"hendel.hbs","./images/sprite.svg":"images/sprite.svg","./css/styles.css":"css/styles.css","./menu.json":"menu.json"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var toolBarClassNameTheme = localStorage.getItem('toolBar.className');
+toolBar.className = "".concat(toolBarClassNameTheme);
+},{"./hendel.hbs":"hendel.hbs","./images/sprite.svg":"images/sprite.svg","./css/styles.css":"css/styles.css","./menu.json":"menu.json","./lazy.js":"lazy.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -2450,7 +2497,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39659" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43907" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
