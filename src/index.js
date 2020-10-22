@@ -31,3 +31,4 @@ inputRef.addEventListener('change', () => {
 
 const toolBarClassNameTheme = localStorage.getItem('toolBar.className');
 toolBar.className = `${toolBarClassNameTheme}`;
+if(toolBarClassNameTheme === 'dark-theme'){inputRef.checked = true}
