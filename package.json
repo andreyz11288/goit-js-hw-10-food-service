@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/andreyz11288/goit-js-hw-10-food-service#index",
   "dependencies": {
+    "express-handlebars": "^5.1.0",
     "joi": "^17.2.1"
   },
   "devDependencies": {

@@ -7,7 +7,9 @@ import menu from './menu.json';
 const ulRef = document.querySelector('.js-menu');
 const newStringRef = newStringEl(menu);
 
+
 ulRef.insertAdjacentHTML('beforeend', newStringRef)
+
 
 function newStringEl(menu) {
     return menu.map(hend).join('')
