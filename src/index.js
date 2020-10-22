@@ -2,7 +2,7 @@ import hend from './hendel.hbs'
 import './images/sprite.svg'
 import './css/styles.css'
 import menu from './menu.json';
-import './lazy.js'
+import './js/lazy.js'
 
 const ulRef = document.querySelector('.js-menu');
 const newStringRef = newStringEl(menu);
@@ -19,16 +19,5 @@ function newStringEl(menu) {
 
 // Изменение темы //
 
-const toolBar = document.querySelector('body')
-toolBar.className = 'light-theme'
-const inputRef = document.querySelector('.theme-switch__toggle')
-inputRef.addEventListener('change', () => {
-    let toolBarClassName = toolBar.className;
-    if (toolBar.className === 'dark-theme') { toolBar.className = 'light-theme'; localStorage.setItem('toolBar.className', 'light-theme'); return } else { toolBar.className = 'dark-theme'; localStorage.setItem('toolBar.className', 'dark-theme') };
-    
-   
-})
+import './js/changeTheme'
 
-const toolBarClassNameTheme = localStorage.getItem('toolBar.className');
-toolBar.className = `${toolBarClassNameTheme}`;
-if(toolBarClassNameTheme === 'dark-theme'){inputRef.checked = true}
