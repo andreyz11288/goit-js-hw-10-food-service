@@ -1,8 +1,8 @@
-import hend from './hendel.hbs'
-import './images/sprite.svg'
-import './css/styles.css'
-import menu from './menu.json';
-import './js/lazy.js'
+import hend from '../handlebars/hendel.hbs'
+import '../images/sprite.svg'
+import '../css/styles.css'
+import menu from '../store/menu.json';
+import './lazy.js'
 
 const ulRef = document.querySelector('.js-menu');
 const newStringRef = newStringEl(menu);
@@ -19,5 +19,5 @@ function newStringEl(menu) {
 
 // Изменение темы //
 
-import './js/changeTheme'
+import './changeTheme'
 
