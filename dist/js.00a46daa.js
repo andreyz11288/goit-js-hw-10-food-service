@@ -2195,7 +2195,7 @@ var templateFunction = _handlebars.default.template({
       return undefined;
     };
 
-    return "<li class=\"menu__item\">\n    <article class=\"card\">\n        <img loading=\"lazy\" src=\"" + alias4((helper = (helper = lookupProperty(helpers, "image") || (depth0 != null ? lookupProperty(depth0, "image") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+    return "<li class=\"menu__item\">\r\n    <article class=\"card\">\r\n        <img loading=\"lazy\" src=\"" + alias4((helper = (helper = lookupProperty(helpers, "image") || (depth0 != null ? lookupProperty(depth0, "image") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
       "name": "image",
       "hash": {},
       "data": data,
@@ -2223,7 +2223,7 @@ var templateFunction = _handlebars.default.template({
           "column": 57
         }
       }
-    }) : helper)) + "\" class=\"card__image\" />\n        <div class=\"card__content\">\n            <h2 class=\"card__name\">" + alias4((helper = (helper = lookupProperty(helpers, "name") || (depth0 != null ? lookupProperty(depth0, "name") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+    }) : helper)) + "\" class=\"card__image\" />\r\n        <div class=\"card__content\">\r\n            <h2 class=\"card__name\">" + alias4((helper = (helper = lookupProperty(helpers, "name") || (depth0 != null ? lookupProperty(depth0, "name") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
       "name": "name",
       "hash": {},
       "data": data,
@@ -2237,7 +2237,7 @@ var templateFunction = _handlebars.default.template({
           "column": 45
         }
       }
-    }) : helper)) + "</h2>\n            <p class=\"card__price\">\n                <i class=\"material-icons\"> monetization_on </i>\n                " + alias4((helper = (helper = lookupProperty(helpers, "price") || (depth0 != null ? lookupProperty(depth0, "price") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+    }) : helper)) + "</h2>\r\n            <p class=\"card__price\">\r\n                <i class=\"material-icons\"> monetization_on </i>\r\n                " + alias4((helper = (helper = lookupProperty(helpers, "price") || (depth0 != null ? lookupProperty(depth0, "price") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
       "name": "price",
       "hash": {},
       "data": data,
@@ -2251,7 +2251,7 @@ var templateFunction = _handlebars.default.template({
           "column": 27
         }
       }
-    }) : helper)) + " кредитов\n            </p>\n\n            <p class=\"card__descr\">\n                " + alias4((helper = (helper = lookupProperty(helpers, "description") || (depth0 != null ? lookupProperty(depth0, "description") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+    }) : helper)) + " кредитов\r\n            </p>\r\n\r\n            <p class=\"card__descr\">\r\n                " + alias4((helper = (helper = lookupProperty(helpers, "description") || (depth0 != null ? lookupProperty(depth0, "description") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
       "name": "description",
       "hash": {},
       "data": data,
@@ -2265,7 +2265,7 @@ var templateFunction = _handlebars.default.template({
           "column": 33
         }
       }
-    }) : helper)) + "\n            </p>\n\n            <ul class=\"tag-list\">\n\n                " + ((stack1 = lookupProperty(helpers, "each").call(alias1, depth0 != null ? lookupProperty(depth0, "ingredients") : depth0, {
+    }) : helper)) + "\r\n            </p>\r\n\r\n            <ul class=\"tag-list\">\r\n\r\n                " + ((stack1 = lookupProperty(helpers, "each").call(alias1, depth0 != null ? lookupProperty(depth0, "ingredients") : depth0, {
       "name": "each",
       "hash": {},
       "fn": container.program(1, data, 0),
@@ -2281,7 +2281,7 @@ var templateFunction = _handlebars.default.template({
           "column": 86
         }
       }
-    })) != null ? stack1 : "") + "\n\n            </ul>\n        </div>\n\n        <button class=\"card__button button\">\n            <i class=\"material-icons button__icon\"> shopping_cart </i>\n            В корзину\n        </button>\n    </article>\n</li>";
+    })) != null ? stack1 : "") + "\r\n\r\n            </ul>\r\n        </div>\r\n\r\n        <button class=\"card__button button\">\r\n            <i class=\"material-icons button__icon\"> shopping_cart </i>\r\n            В корзину\r\n        </button>\r\n    </article>\r\n</li>";
   },
   "useData": true
 });
@@ -2362,7 +2362,42 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"store/menu.json":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/lazy.js":[function(require,module,exports) {
+if ('loading' in HTMLImageElement.prototype) {
+  console.log('Браузер поддерживает lazyload');
+  addSrcAttrToLazyImages();
+} else {
+  console.log('Браузер НЕ поддерживает lazyload');
+  addLazySizesScript();
+}
+
+var lazyImages = document.querySelectorAll('img[data-src]');
+lazyImages.forEach(function (image) {
+  image.addEventListener('load', onImageLoaded, {
+    once: true
+  });
+});
+
+function onImageLoaded(evt) {
+  console.log('Картинка загрузилась');
+  evt.target.classList.add('appear');
+}
+
+function addLazySizesScript() {
+  var script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js';
+  script.integrity = 'sha512-TmDwFLhg3UA4ZG0Eb4MIyT1O1Mb+Oww5kFG0uHqXsdbyZz9DcvYQhKpGgNkamAI6h2lGGZq2X8ftOJvF/XjTUg==';
+  script.crossOrigin = 'anonymous';
+  document.body.appendChild(script);
+}
+
+function addSrcAttrToLazyImages() {
+  var lazyImages = document.querySelectorAll('img[loading="lazy"]');
+  lazyImages.forEach(function (img) {
+    img.src = img.dataset.src;
+  });
+}
+},{}],"store/menu.json":[function(require,module,exports) {
 module.exports = [{
   "id": "XWaQXcbk0",
   "name": "Картофель, запеченный в мундире",
@@ -2420,42 +2455,25 @@ module.exports = [{
   "price": 240,
   "ingredients": ["Круглый рис", "Мини цукини", "Тертый имбирь", "Грибы шиитаке", "Соевый соус", "Кунжутное масло"]
 }];
-},{}],"js/lazy.js":[function(require,module,exports) {
-if ('loading' in HTMLImageElement.prototype) {
-  console.log('Браузер поддерживает lazyload');
-  addSrcAttrToLazyImages();
-} else {
-  console.log('Браузер НЕ поддерживает lazyload');
-  addLazySizesScript();
-}
+},{}],"js/addMarkup.js":[function(require,module,exports) {
+"use strict";
 
-var lazyImages = document.querySelectorAll('img[data-src]');
-lazyImages.forEach(function (image) {
-  image.addEventListener('load', onImageLoaded, {
-    once: true
-  });
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
+exports.default = newStringEl;
 
-function onImageLoaded(evt) {
-  console.log('Картинка загрузилась');
-  evt.target.classList.add('appear');
-}
+var _menu = _interopRequireDefault(require("../store/menu.json"));
 
-function addLazySizesScript() {
-  var script = document.createElement('script');
-  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js';
-  script.integrity = 'sha512-TmDwFLhg3UA4ZG0Eb4MIyT1O1Mb+Oww5kFG0uHqXsdbyZz9DcvYQhKpGgNkamAI6h2lGGZq2X8ftOJvF/XjTUg==';
-  script.crossOrigin = 'anonymous';
-  document.body.appendChild(script);
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function addSrcAttrToLazyImages() {
-  var lazyImages = document.querySelectorAll('img[loading="lazy"]');
-  lazyImages.forEach(function (img) {
-    img.src = img.dataset.src;
-  });
-}
-},{}],"js/index.js":[function(require,module,exports) {
+var ulRef = document.querySelector('.js-menu');
+
+function newStringEl(e) {
+  var newStringRef = e.map(hend).join('');
+  ulRef.insertAdjacentHTML('beforeend', newStringRef);
+} // newStringEl(menu)
+},{"../store/menu.json":"store/menu.json"}],"js/index.js":[function(require,module,exports) {
 "use strict";
 
 require("./changeTheme");
@@ -2466,21 +2484,21 @@ require("../images/sprite.svg");
 
 require("../css/styles.css");
 
+require("./lazy.js");
+
 var _menu = _interopRequireDefault(require("../store/menu.json"));
 
-require("./lazy.js");
+var _addMarkup = _interopRequireDefault(require("./addMarkup.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ulRef = document.querySelector('.js-menu');
+var ulRef = document.querySelector('.js-menu'); // function newStringEl(e) { 
+// const newStringRef = e.map(hend).join('');
+// ulRef.insertAdjacentHTML('beforeend', newStringRef)
+// } 
 
-function newStringEl(e) {
-  var newStringRef = e.map(_hendel.default).join('');
-  ulRef.insertAdjacentHTML('beforeend', newStringRef);
-}
-
-newStringEl(_menu.default);
-},{"./changeTheme":"js/changeTheme.js","../handlebars/hendel.hbs":"handlebars/hendel.hbs","../images/sprite.svg":"images/sprite.svg","../css/styles.css":"css/styles.css","../store/menu.json":"store/menu.json","./lazy.js":"js/lazy.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+(0, _addMarkup.default)(_menu.default);
+},{"./changeTheme":"js/changeTheme.js","../handlebars/hendel.hbs":"handlebars/hendel.hbs","../images/sprite.svg":"images/sprite.svg","../css/styles.css":"css/styles.css","./lazy.js":"js/lazy.js","../store/menu.json":"store/menu.json","./addMarkup.js":"js/addMarkup.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -2508,7 +2526,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "32919" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50759" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
