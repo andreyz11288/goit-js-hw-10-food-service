@@ -117,7 +117,36 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../node_modules/handlebars/dist/handlebars.runtime.js":[function(require,module,exports) {
+})({"js/changeTheme.js":[function(require,module,exports) {
+// Изменение темы //
+var Theme = {
+  LIGHT: 'light-theme',
+  DARK: 'dark-theme'
+};
+var toolBar = document.querySelector('body');
+toolBar.className = "".concat(Theme.LIGHT);
+var inputRef = document.querySelector('.theme-switch__toggle');
+inputRef.addEventListener('change', function () {
+  var toolBarClassName = toolBar.className;
+
+  if (toolBar.className === "".concat(Theme.DARK)) {
+    toolBar.className = "".concat(Theme.LIGHT);
+    localStorage.setItem('toolBar.className', "".concat(Theme.LIGHT));
+    return;
+  } else {
+    toolBar.className = "".concat(Theme.DARK);
+    localStorage.setItem('toolBar.className', "".concat(Theme.DARK));
+  }
+
+  ;
+});
+var toolBarClassNameTheme = localStorage.getItem('toolBar.className');
+toolBar.className = "".concat(toolBarClassNameTheme);
+
+if (toolBarClassNameTheme === "".concat(Theme.DARK)) {
+  inputRef.checked = true;
+}
+},{}],"../node_modules/handlebars/dist/handlebars.runtime.js":[function(require,module,exports) {
 var define;
 var global = arguments[3];
 /**!
@@ -2426,37 +2455,10 @@ function addSrcAttrToLazyImages() {
     img.src = img.dataset.src;
   });
 }
-},{}],"js/changeTheme.js":[function(require,module,exports) {
-// Изменение темы //
-var Theme = {
-  LIGHT: 'light-theme',
-  DARK: 'dark-theme'
-};
-var toolBar = document.querySelector('body');
-toolBar.className = "".concat(Theme.LIGHT);
-var inputRef = document.querySelector('.theme-switch__toggle');
-inputRef.addEventListener('change', function () {
-  var toolBarClassName = toolBar.className;
-
-  if (toolBar.className === "".concat(Theme.DARK)) {
-    toolBar.className = "".concat(Theme.LIGHT);
-    localStorage.setItem('toolBar.className', "".concat(Theme.LIGHT));
-    return;
-  } else {
-    toolBar.className = "".concat(Theme.DARK);
-    localStorage.setItem('toolBar.className', "".concat(Theme.DARK));
-  }
-
-  ;
-});
-var toolBarClassNameTheme = localStorage.getItem('toolBar.className');
-toolBar.className = "".concat(toolBarClassNameTheme);
-
-if (toolBarClassNameTheme === "".concat(Theme.DARK)) {
-  inputRef.checked = true;
-}
 },{}],"js/index.js":[function(require,module,exports) {
 "use strict";
+
+require("./changeTheme");
 
 var _hendel = _interopRequireDefault(require("../handlebars/hendel.hbs"));
 
@@ -2468,18 +2470,17 @@ var _menu = _interopRequireDefault(require("../store/menu.json"));
 
 require("./lazy.js");
 
-require("./changeTheme");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ulRef = document.querySelector('.js-menu');
-var newStringRef = newStringEl(_menu.default);
-ulRef.insertAdjacentHTML('beforeend', newStringRef);
 
-function newStringEl(menu) {
-  return menu.map(_hendel.default).join('');
-} // Изменение темы //
-},{"../handlebars/hendel.hbs":"handlebars/hendel.hbs","../images/sprite.svg":"images/sprite.svg","../css/styles.css":"css/styles.css","../store/menu.json":"store/menu.json","./lazy.js":"js/lazy.js","./changeTheme":"js/changeTheme.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+function newStringEl(e) {
+  var newStringRef = e.map(_hendel.default).join('');
+  ulRef.insertAdjacentHTML('beforeend', newStringRef);
+}
+
+newStringEl(_menu.default);
+},{"./changeTheme":"js/changeTheme.js","../handlebars/hendel.hbs":"handlebars/hendel.hbs","../images/sprite.svg":"images/sprite.svg","../css/styles.css":"css/styles.css","../store/menu.json":"store/menu.json","./lazy.js":"js/lazy.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -2507,7 +2508,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39311" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "32919" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
