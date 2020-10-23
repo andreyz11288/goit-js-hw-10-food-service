@@ -146,6 +146,173 @@ toolBar.className = "".concat(toolBarClassNameTheme);
 if (toolBarClassNameTheme === "".concat(Theme.DARK)) {
   inputRef.checked = true;
 }
+},{}],"images/sprite.svg":[function(require,module,exports) {
+module.exports = "/sprite.5ec50489.svg";
+},{}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"css/styles.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/lazy.js":[function(require,module,exports) {
+if ('loading' in HTMLImageElement.prototype) {
+  console.log('Браузер поддерживает lazyload');
+  addSrcAttrToLazyImages();
+} else {
+  console.log('Браузер НЕ поддерживает lazyload');
+  addLazySizesScript();
+}
+
+var lazyImages = document.querySelectorAll('img[data-src]');
+lazyImages.forEach(function (image) {
+  image.addEventListener('load', onImageLoaded, {
+    once: true
+  });
+});
+
+function onImageLoaded(evt) {
+  console.log('Картинка загрузилась');
+  evt.target.classList.add('appear');
+}
+
+function addLazySizesScript() {
+  var script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js';
+  script.integrity = 'sha512-TmDwFLhg3UA4ZG0Eb4MIyT1O1Mb+Oww5kFG0uHqXsdbyZz9DcvYQhKpGgNkamAI6h2lGGZq2X8ftOJvF/XjTUg==';
+  script.crossOrigin = 'anonymous';
+  document.body.appendChild(script);
+}
+
+function addSrcAttrToLazyImages() {
+  var lazyImages = document.querySelectorAll('img[loading="lazy"]');
+  lazyImages.forEach(function (img) {
+    img.src = img.dataset.src;
+  });
+}
+},{}],"store/menu.json":[function(require,module,exports) {
+module.exports = [{
+  "id": "XWaQXcbk0",
+  "name": "Картофель, запеченный в мундире",
+  "description": "Ароматный, сытный, шипящий домашний картофель, фаршированный сметанно-беконной начинкой, — это очень простой и очень эффектный способ накормить большое количество человек, практически не потратив на готовку ни сил, ни времени. Обычную картошку при желании тут можно заменить на сладкий батат, а в начинку добавить, к примеру, кукурузу или сладкий красный перец.",
+  "image": "https://s1.eda.ru/StaticContent/Photos/140812180013/140820212258/p_O.jpg",
+  "price": 100,
+  "ingredients": ["Картофель", "Чеснок", "Сметана", "Бекон", "Твердый сыр", "Зеленый лук"]
+}, {
+  "id": "pkXzyRp1P",
+  "name": "Томатный магрибский суп",
+  "description": "Томатный магрибский суп особенно распространен в Марокко и Тунисе. Он весьма прост в приготовлении и сам по себе легкий — в основе томаты и куриный бульон. Кроме них в супе только необходимые специи, мед и лимон, которые все вместе и передают тот самый восточный колорит. Вкус супа всецело зависит от качества томатов. Дополнят блюдо свежая кинза и отдельные дольки лимона.",
+  "image": "https://www.go-cook.ru/wp-content/uploads/2014/11/magribskij-tomatnyj-sup.jpg",
+  "price": 150,
+  "ingredients": ["Помидоры", "Куриный бульон", "Мед", "Петрушка", "Кинза", "Паприка"]
+}, {
+  "id": "QMom9q4Ku",
+  "name": "Крем-суп из тыквы",
+  "description": "Портрет этой оранжевой похлебки украшает обложку книги «La Cuisine du Marché» Поля Бокюза. Бокюз, придумавший так называемую новую кухню, считал тыкву одной из основ этого миропорядка, а тыквенный суп — эдакой околоплодной водой гастрономии.",
+  "image": "https://s1.eda.ru/StaticContent/Photos/121114213720/151024152626/p_O.png",
+  "price": 100,
+  "ingredients": ["Тыква", "Петрушка", "Сливки", "Бренди", "Куриный бульон"]
+}, {
+  "id": "k2k0UrjZG",
+  "name": "Салат из красной фасоли с творожным сыром",
+  "description": "Тосканский салат, выдержанный в колористике итальянского флага. Буквально нескольких ложек хватает, чтобы в желудке образовалась приятная тяжесть. Очень полезная штука с точки зрения утра, когда трудно запихнуть в себя крупные дозы биомассы, а есть при этом хочется.",
+  "image": "https://s.mediasole.ru/cache/content/data/images/1393/1393226/original.jpg",
+  "price": 150,
+  "ingredients": ["Фасоль", "Соль", "Чеснок", "Оливковое масло", "Творожный сыр", "Красный лук"]
+}, {
+  "id": "j2k8U1jZd",
+  "name": "Классический греческий салат ",
+  "description": "Это рецепт из старой, привезенной из Греции, кулинарной книги. Секрет салата — свежайшие овощи и хорошая фета. Для салата используют только оливковое масло, а такие специи, как орегано и базилик, являются визитной карточкой греческой кухни.",
+  "image": "https://dietdo.ru/wp-content/uploads/2017/03/Grecheskiy-salat-retsept-klassicheskiy-s-foto-poshagovo-min.jpg",
+  "price": 350,
+  "ingredients": ["Оливковое масло", "Лимонный сок", "Чеснок", "Помидоры", "Красный лук", "Сыр фета", "Маслины"]
+}, {
+  "id": "X2aQ7cvkd",
+  "name": "Маффины с голубикой и мускатным орехом",
+  "description": "Культовая ягода, которую научились производить круглый год, в сочетании с рыхлым тестом — это абсолютно беспроигрышный вариант. Маффины с голубикой стали популярным десертом в Англии и Америке, хотя происхождение их французское. Да и вообще эти маленькие сладкие кексы, какими мы их знаем сейчас, задумывались как обычный хлеб и на вкус были нейтральны.",
+  "image": "https://s1.eda.ru/StaticContent/Photos/120131111301/140324110953/p_O.jpg",
+  "price": 170,
+  "ingredients": ["Сливочное масло", "Пшеничная мука", "Голубика", "Ванильный экстракт", "Мускатный орех"]
+}, {
+  "id": "nk3zy1pf8",
+  "name": "Азу по‑татарски",
+  "description": "Одно из немногих блюд, удостоившихся в советской продуктовой традиции продажи с именной нарезкой. И до сих пор в кулинариях и супермаркетах можно найти говядину, которую режут соломкой и продают как азу. Насчет самого блюда до сих пор идут споры, как и с чем готовить: использовать говядину или баранину, топленое или обычное масло, тушить в казане или сотейнике с толстым дном. Редакций этого блюда может быть много, но основа его всегда неизменна — это нарезанное соломкой мясо, картофель и томатный соус.",
+  "image": "https://s2.eda.ru/StaticContent/Photos/160105153525/160110193232/p_O.jpg",
+  "price": 270,
+  "ingredients": ["Говядина", "Соленые огурцы", "Картофель", "Мясной бульон", "Чеснок"]
+}, {
+  "id": "b7k2U13fd",
+  "name": "Жареный рис с яйцом по‑китайски",
+  "description": "Жареный рис — довольно распространенный ингредиент блюд восточноазиатской кухни — готовить, в сущности, можно из остатков вчерашнего ужина. Только хорошо остывший, заранее сваренный рис, в идеале простоявший всю ночь в холодильнике, при попадании в раскаленный вок не расползется до состояния каши и не превратит содержимое сковородки в неповоротливый бесформенный ком.",
+  "image": "https://s2.eda.ru/StaticContent/Photos/150428090447/150505141508/p_O.jpg",
+  "price": 240,
+  "ingredients": ["Круглый рис", "Мини цукини", "Тертый имбирь", "Грибы шиитаке", "Соевый соус", "Кунжутное масло"]
+}];
 },{}],"../node_modules/handlebars/dist/handlebars.runtime.js":[function(require,module,exports) {
 var define;
 var global = arguments[3];
@@ -2288,174 +2455,7 @@ var templateFunction = _handlebars.default.template({
 
 var _default = templateFunction;
 exports.default = _default;
-},{"handlebars/dist/handlebars.runtime":"../node_modules/handlebars/dist/handlebars.runtime.js"}],"images/sprite.svg":[function(require,module,exports) {
-module.exports = "/sprite.5ec50489.svg";
-},{}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"css/styles.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/lazy.js":[function(require,module,exports) {
-if ('loading' in HTMLImageElement.prototype) {
-  console.log('Браузер поддерживает lazyload');
-  addSrcAttrToLazyImages();
-} else {
-  console.log('Браузер НЕ поддерживает lazyload');
-  addLazySizesScript();
-}
-
-var lazyImages = document.querySelectorAll('img[data-src]');
-lazyImages.forEach(function (image) {
-  image.addEventListener('load', onImageLoaded, {
-    once: true
-  });
-});
-
-function onImageLoaded(evt) {
-  console.log('Картинка загрузилась');
-  evt.target.classList.add('appear');
-}
-
-function addLazySizesScript() {
-  var script = document.createElement('script');
-  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js';
-  script.integrity = 'sha512-TmDwFLhg3UA4ZG0Eb4MIyT1O1Mb+Oww5kFG0uHqXsdbyZz9DcvYQhKpGgNkamAI6h2lGGZq2X8ftOJvF/XjTUg==';
-  script.crossOrigin = 'anonymous';
-  document.body.appendChild(script);
-}
-
-function addSrcAttrToLazyImages() {
-  var lazyImages = document.querySelectorAll('img[loading="lazy"]');
-  lazyImages.forEach(function (img) {
-    img.src = img.dataset.src;
-  });
-}
-},{}],"store/menu.json":[function(require,module,exports) {
-module.exports = [{
-  "id": "XWaQXcbk0",
-  "name": "Картофель, запеченный в мундире",
-  "description": "Ароматный, сытный, шипящий домашний картофель, фаршированный сметанно-беконной начинкой, — это очень простой и очень эффектный способ накормить большое количество человек, практически не потратив на готовку ни сил, ни времени. Обычную картошку при желании тут можно заменить на сладкий батат, а в начинку добавить, к примеру, кукурузу или сладкий красный перец.",
-  "image": "https://s1.eda.ru/StaticContent/Photos/140812180013/140820212258/p_O.jpg",
-  "price": 100,
-  "ingredients": ["Картофель", "Чеснок", "Сметана", "Бекон", "Твердый сыр", "Зеленый лук"]
-}, {
-  "id": "pkXzyRp1P",
-  "name": "Томатный магрибский суп",
-  "description": "Томатный магрибский суп особенно распространен в Марокко и Тунисе. Он весьма прост в приготовлении и сам по себе легкий — в основе томаты и куриный бульон. Кроме них в супе только необходимые специи, мед и лимон, которые все вместе и передают тот самый восточный колорит. Вкус супа всецело зависит от качества томатов. Дополнят блюдо свежая кинза и отдельные дольки лимона.",
-  "image": "https://www.go-cook.ru/wp-content/uploads/2014/11/magribskij-tomatnyj-sup.jpg",
-  "price": 150,
-  "ingredients": ["Помидоры", "Куриный бульон", "Мед", "Петрушка", "Кинза", "Паприка"]
-}, {
-  "id": "QMom9q4Ku",
-  "name": "Крем-суп из тыквы",
-  "description": "Портрет этой оранжевой похлебки украшает обложку книги «La Cuisine du Marché» Поля Бокюза. Бокюз, придумавший так называемую новую кухню, считал тыкву одной из основ этого миропорядка, а тыквенный суп — эдакой околоплодной водой гастрономии.",
-  "image": "https://s1.eda.ru/StaticContent/Photos/121114213720/151024152626/p_O.png",
-  "price": 100,
-  "ingredients": ["Тыква", "Петрушка", "Сливки", "Бренди", "Куриный бульон"]
-}, {
-  "id": "k2k0UrjZG",
-  "name": "Салат из красной фасоли с творожным сыром",
-  "description": "Тосканский салат, выдержанный в колористике итальянского флага. Буквально нескольких ложек хватает, чтобы в желудке образовалась приятная тяжесть. Очень полезная штука с точки зрения утра, когда трудно запихнуть в себя крупные дозы биомассы, а есть при этом хочется.",
-  "image": "https://s.mediasole.ru/cache/content/data/images/1393/1393226/original.jpg",
-  "price": 150,
-  "ingredients": ["Фасоль", "Соль", "Чеснок", "Оливковое масло", "Творожный сыр", "Красный лук"]
-}, {
-  "id": "j2k8U1jZd",
-  "name": "Классический греческий салат ",
-  "description": "Это рецепт из старой, привезенной из Греции, кулинарной книги. Секрет салата — свежайшие овощи и хорошая фета. Для салата используют только оливковое масло, а такие специи, как орегано и базилик, являются визитной карточкой греческой кухни.",
-  "image": "https://dietdo.ru/wp-content/uploads/2017/03/Grecheskiy-salat-retsept-klassicheskiy-s-foto-poshagovo-min.jpg",
-  "price": 350,
-  "ingredients": ["Оливковое масло", "Лимонный сок", "Чеснок", "Помидоры", "Красный лук", "Сыр фета", "Маслины"]
-}, {
-  "id": "X2aQ7cvkd",
-  "name": "Маффины с голубикой и мускатным орехом",
-  "description": "Культовая ягода, которую научились производить круглый год, в сочетании с рыхлым тестом — это абсолютно беспроигрышный вариант. Маффины с голубикой стали популярным десертом в Англии и Америке, хотя происхождение их французское. Да и вообще эти маленькие сладкие кексы, какими мы их знаем сейчас, задумывались как обычный хлеб и на вкус были нейтральны.",
-  "image": "https://s1.eda.ru/StaticContent/Photos/120131111301/140324110953/p_O.jpg",
-  "price": 170,
-  "ingredients": ["Сливочное масло", "Пшеничная мука", "Голубика", "Ванильный экстракт", "Мускатный орех"]
-}, {
-  "id": "nk3zy1pf8",
-  "name": "Азу по‑татарски",
-  "description": "Одно из немногих блюд, удостоившихся в советской продуктовой традиции продажи с именной нарезкой. И до сих пор в кулинариях и супермаркетах можно найти говядину, которую режут соломкой и продают как азу. Насчет самого блюда до сих пор идут споры, как и с чем готовить: использовать говядину или баранину, топленое или обычное масло, тушить в казане или сотейнике с толстым дном. Редакций этого блюда может быть много, но основа его всегда неизменна — это нарезанное соломкой мясо, картофель и томатный соус.",
-  "image": "https://s2.eda.ru/StaticContent/Photos/160105153525/160110193232/p_O.jpg",
-  "price": 270,
-  "ingredients": ["Говядина", "Соленые огурцы", "Картофель", "Мясной бульон", "Чеснок"]
-}, {
-  "id": "b7k2U13fd",
-  "name": "Жареный рис с яйцом по‑китайски",
-  "description": "Жареный рис — довольно распространенный ингредиент блюд восточноазиатской кухни — готовить, в сущности, можно из остатков вчерашнего ужина. Только хорошо остывший, заранее сваренный рис, в идеале простоявший всю ночь в холодильнике, при попадании в раскаленный вок не расползется до состояния каши и не превратит содержимое сковородки в неповоротливый бесформенный ком.",
-  "image": "https://s2.eda.ru/StaticContent/Photos/150428090447/150505141508/p_O.jpg",
-  "price": 240,
-  "ingredients": ["Круглый рис", "Мини цукини", "Тертый имбирь", "Грибы шиитаке", "Соевый соус", "Кунжутное масло"]
-}];
-},{}],"js/addMarkup.js":[function(require,module,exports) {
+},{"handlebars/dist/handlebars.runtime":"../node_modules/handlebars/dist/handlebars.runtime.js"}],"js/addMarkup.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2463,22 +2463,20 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = newStringEl;
 
-var _menu = _interopRequireDefault(require("../store/menu.json"));
+var _hendel = _interopRequireDefault(require("../handlebars/hendel.hbs"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ulRef = document.querySelector('.js-menu');
 
 function newStringEl(e) {
-  var newStringRef = e.map(hend).join('');
+  var newStringRef = e.map(_hendel.default).join('');
   ulRef.insertAdjacentHTML('beforeend', newStringRef);
-} // newStringEl(menu)
-},{"../store/menu.json":"store/menu.json"}],"js/index.js":[function(require,module,exports) {
+}
+},{"../handlebars/hendel.hbs":"handlebars/hendel.hbs"}],"js/index.js":[function(require,module,exports) {
 "use strict";
 
 require("./changeTheme");
-
-var _hendel = _interopRequireDefault(require("../handlebars/hendel.hbs"));
 
 require("../images/sprite.svg");
 
@@ -2492,13 +2490,8 @@ var _addMarkup = _interopRequireDefault(require("./addMarkup.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ulRef = document.querySelector('.js-menu'); // function newStringEl(e) { 
-// const newStringRef = e.map(hend).join('');
-// ulRef.insertAdjacentHTML('beforeend', newStringRef)
-// } 
-
 (0, _addMarkup.default)(_menu.default);
-},{"./changeTheme":"js/changeTheme.js","../handlebars/hendel.hbs":"handlebars/hendel.hbs","../images/sprite.svg":"images/sprite.svg","../css/styles.css":"css/styles.css","./lazy.js":"js/lazy.js","../store/menu.json":"store/menu.json","./addMarkup.js":"js/addMarkup.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./changeTheme":"js/changeTheme.js","../images/sprite.svg":"images/sprite.svg","../css/styles.css":"css/styles.css","./lazy.js":"js/lazy.js","../store/menu.json":"store/menu.json","./addMarkup.js":"js/addMarkup.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
