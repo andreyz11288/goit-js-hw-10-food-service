@@ -118,33 +118,42 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"js/changeTheme.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = changeTheme;
 // Изменение темы //
 var Theme = {
   LIGHT: 'light-theme',
   DARK: 'dark-theme'
 };
-var toolBar = document.querySelector('body');
-toolBar.className = "".concat(Theme.LIGHT);
-var inputRef = document.querySelector('.theme-switch__toggle');
-inputRef.addEventListener('change', function () {
-  var toolBarClassName = toolBar.className;
 
-  if (toolBar.className === "".concat(Theme.DARK)) {
-    toolBar.className = "".concat(Theme.LIGHT);
-    localStorage.setItem('toolBar.className', "".concat(Theme.LIGHT));
-    return;
-  } else {
-    toolBar.className = "".concat(Theme.DARK);
-    localStorage.setItem('toolBar.className', "".concat(Theme.DARK));
+function changeTheme() {
+  var toolBar = document.querySelector('body');
+  toolBar.className = "".concat(Theme.LIGHT);
+  var inputRef = document.querySelector('.theme-switch__toggle');
+  inputRef.addEventListener('change', function () {
+    var toolBarClassName = toolBar.className;
+
+    if (toolBar.className === "".concat(Theme.DARK)) {
+      toolBar.className = "".concat(Theme.LIGHT);
+      localStorage.setItem('toolBar.className', "".concat(Theme.LIGHT));
+      return;
+    } else {
+      toolBar.className = "".concat(Theme.DARK);
+      localStorage.setItem('toolBar.className', "".concat(Theme.DARK));
+    }
+
+    ;
+  });
+  var toolBarClassNameTheme = localStorage.getItem('toolBar.className');
+  toolBar.className = "".concat(toolBarClassNameTheme);
+
+  if (toolBarClassNameTheme === "".concat(Theme.DARK)) {
+    inputRef.checked = true;
   }
-
-  ;
-});
-var toolBarClassNameTheme = localStorage.getItem('toolBar.className');
-toolBar.className = "".concat(toolBarClassNameTheme);
-
-if (toolBarClassNameTheme === "".concat(Theme.DARK)) {
-  inputRef.checked = true;
 }
 },{}],"images/sprite.svg":[function(require,module,exports) {
 module.exports = "/sprite.5ec50489.svg";
@@ -2476,7 +2485,7 @@ function newStringEl(e) {
 },{"../handlebars/hendel.hbs":"handlebars/hendel.hbs"}],"js/index.js":[function(require,module,exports) {
 "use strict";
 
-require("./changeTheme");
+var _changeTheme = _interopRequireDefault(require("./changeTheme"));
 
 require("../images/sprite.svg");
 
@@ -2491,6 +2500,7 @@ var _addMarkup = _interopRequireDefault(require("./addMarkup.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _addMarkup.default)(_menu.default);
+(0, _changeTheme.default)();
 },{"./changeTheme":"js/changeTheme.js","../images/sprite.svg":"images/sprite.svg","../css/styles.css":"css/styles.css","./lazy.js":"js/lazy.js","../store/menu.json":"store/menu.json","./addMarkup.js":"js/addMarkup.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -2519,7 +2529,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50759" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54191" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -6,7 +6,8 @@ const Theme = {
   DARK: 'dark-theme',
 };
 
-const toolBar = document.querySelector('body')
+export default function changeTheme() {
+  const toolBar = document.querySelector('body')
 toolBar.className = `${Theme.LIGHT}`
 const inputRef = document.querySelector('.theme-switch__toggle')
 inputRef.addEventListener('change', () => {
@@ -19,3 +20,4 @@ inputRef.addEventListener('change', () => {
 const toolBarClassNameTheme = localStorage.getItem('toolBar.className');
 toolBar.className = `${toolBarClassNameTheme}`;
 if(toolBarClassNameTheme === `${Theme.DARK}`){inputRef.checked = true}
+}

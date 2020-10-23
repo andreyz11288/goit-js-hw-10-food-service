@@ -1,4 +1,4 @@
-import './changeTheme'
+import changeTheme from './changeTheme'
 import '../images/sprite.svg'
 import '../css/styles.css'
 import './lazy.js'
@@ -9,3 +9,4 @@ import newStringEl from './addMarkup.js'
 
 
 newStringEl(menu)
+changeTheme()
